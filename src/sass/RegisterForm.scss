@@ -7,23 +7,77 @@
 }
 .register-container{
     height: 500px;
-    min-width: 700px;
+    max-width: 800px;
+}
+.register-card{
+    height: 100%;
+    width: 100%;
     outline: 2px solid rgb(204, 199, 199);
     border-radius: 4px;
     display: flex !important;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 .form-content-one{
-    width: 47%;
+    width: 55%;
     height: 85%;
-    background-color: aquamarine;
     display: flex;
     flex-direction: column;
     align-items: start;
+    justify-content: space-between;
 }
+.register-form-title{
+    color: rgb(239, 215, 78);
+    font-weight: 700;
+    font-size: 20px;
+}
+.register-form-heading{
+    font-weight: 500;
+}
+.input-text-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.text-field{
+    width: 45%;
+}
+.input-username-container{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    width: 100%;
+}
+.input-username-container span{
+    font-size: 14px;
+}
+.password-container span{
+    font-size: 14px;
+}
+
 .form-content-two{
-    width: 47%;
+    width: 40%;
     height: 85%;
-    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form-content-two img{
+    width: 80%;
+}
+.form-content-two span{
+    font-size: 20px;
+    font-weight: 500;
+}
+.register-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+.login-link{
+    text-decoration: none;
+    color: rgb(0, 123, 255);
+    font-weight: 500;
 }

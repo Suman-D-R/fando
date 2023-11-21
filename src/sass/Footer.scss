@@ -1,0 +1,17 @@
+footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    color: rgb(140, 140, 140);
+}
+.footer-content-one{
+    width: 65%;
+    text-align: start;
+}
+.footer-content-two{
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+}
