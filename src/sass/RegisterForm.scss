@@ -1,0 +1,29 @@
+.register-form{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.register-container{
+    height: 500px;
+    min-width: 700px;
+    outline: 2px solid rgb(204, 199, 199);
+    border-radius: 4px;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-content-one{
+    width: 47%;
+    height: 85%;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.form-content-two{
+    width: 47%;
+    height: 85%;
+    background-color: aquamarine;
+}
