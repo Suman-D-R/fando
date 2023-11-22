@@ -6,7 +6,7 @@
     align-items: center;
 }
 .register-container{
-    height: 500px;
+    height: 450px;
     max-width: 800px;
 }
 .register-card{
@@ -26,8 +26,9 @@
     align-items: start;
     justify-content: space-between;
 }
+$title-color:   rgb(239, 215, 78);
 .register-form-title{
-    color: rgb(239, 215, 78);
+    color: $title-color;
     font-weight: 700;
     font-size: 20px;
 }
@@ -41,6 +42,7 @@
 }
 .text-field{
     width: 45%;
+    size: 20px;
 }
 .input-username-container{
     display: flex;
@@ -80,4 +82,26 @@
     text-decoration: none;
     color: rgb(0, 123, 255);
     font-weight: 500;
+}
+@media only screen and ( max-width: 800px){
+    .form-content-two{
+        display: none;
+    }
+    .form-content-one{
+        width: 100%;
+    }
+    .register-container{
+        height: 75%;
+        max-width: 90%;
+    }
+    .input-text-container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+    .text-field {
+        width: 100%;
+        margin-bottom: 20px !important;
+    }
 }

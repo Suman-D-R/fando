@@ -19,12 +19,14 @@ function Login() {
               id="outlined-basic"
               label="Email or phone*"
               variant="outlined"
+              size="small"
             />
             <div className="password-container">
               <TextField
                 id="outlined-basic"
                 label="Password*"
                 variant="outlined"
+                size="small"
               />
               <span>Forget password</span>
             </div>

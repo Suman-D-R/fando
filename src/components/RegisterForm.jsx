@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -8,6 +8,44 @@ import Footer from "./Footer";
 import { NavLink } from "react-router-dom";
 
 function RegisterForm() {
+
+  const [data,setData] = useState({firstname:"",lastname:"",password:"",conformpassowrd:"",username:""});
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isUsernameValid, setIsUsernameValid] = useState(true);
+
+
+  const firstname = (e)=>{
+    setData({...data,firstname:e.target.value})
+  }
+
+  const lastname = (e)=>{
+    setData({...data,lastname:e.target.value})
+  }
+
+  const usernameRegex = /^[a-zA-Z0-9.]{5,}$/;
+
+const username = (e) => {
+  const value = e.target.value;
+  setData({ ...data, username: value });
+  setIsUsernameValid(usernameRegex.test(value));
+};
+
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  const password = (e) => {
+    const value = e.target.value;
+    setData({ ...data, password: value });
+    setIsPasswordValid(passwordRegex.test(value));
+  };
+
+  const conformpassword = (e) => {
+    const value = e.target.value;
+    setData({ ...data, conformpassword: value });
+    setIsPasswordValid(passwordRegex.test(value) && data.password === value);
+  };
+
+  
+  console.log(data)
   return (
     <div className="register-form">
       <div className="register-container">
@@ -23,12 +61,17 @@ function RegisterForm() {
                 id="outlined-basic"
                 label="First Name*"
                 variant="outlined"
+                size="small"
+                value={data.firstname}
+                onChange={firstname}
               />
               <TextField
                 className="text-field"
                 id="outlined-basic"
                 label="Last Name*"
                 variant="outlined"
+                size="small"
+                onChange={lastname}
               />
             </div>
             <div className="input-username-container">
@@ -36,6 +79,9 @@ function RegisterForm() {
                 id="outlined-basic"
                 label="Username*"
                 variant="outlined"
+                size="small"
+                onChange={username}
+                error={!isUsernameValid}
               />
               <span>You can use letters, numbers & periods</span>
             </div>
@@ -46,12 +92,20 @@ function RegisterForm() {
                   id="outlined-basic"
                   label="Password*"
                   variant="outlined"
+                  size="small"
+                  onChange={password}
+                  pattern={passwordRegex}
+                  error={!isPasswordValid}
                 />
                 <TextField
                   className="text-field"
                   id="outlined-basic"
                   label="Confirm*"
                   variant="outlined"
+                  size="small"
+                  onChange={conformpassword}
+                  pattern={passwordRegex}
+                  error={!isPasswordValid}
                 />
               </div>
               <span>
