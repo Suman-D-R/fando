@@ -6,28 +6,29 @@ import "../sass/RegisterForm.scss";
 import logo from "../assets/redister-image.png";
 import Footer from "./Footer";
 import { NavLink } from "react-router-dom";
+import {signup} from "../utils/userService";
 
 function RegisterForm() {
 
-  const [data,setData] = useState({firstname:"",lastname:"",password:"",conformpassowrd:"",username:""});
+  const [data,setData] = useState({service:"advance"});
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isUsernameValid, setIsUsernameValid] = useState(true);
+  // const [isUsernameValid, setIsUsernameValid] = useState(true);
 
 
   const firstname = (e)=>{
-    setData({...data,firstname:e.target.value})
+    setData({...data,firstName:e.target.value})
   }
 
   const lastname = (e)=>{
-    setData({...data,lastname:e.target.value})
+    setData({...data,lastName:e.target.value})
   }
 
   const usernameRegex = /^[a-zA-Z0-9.]{5,}$/;
 
 const username = (e) => {
   const value = e.target.value;
-  setData({ ...data, username: value });
-  setIsUsernameValid(usernameRegex.test(value));
+  setData({ ...data, email: value });
+  // setIsUsernameValid(usernameRegex.test(value));
 };
 
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -40,12 +41,21 @@ const username = (e) => {
 
   const conformpassword = (e) => {
     const value = e.target.value;
-    setData({ ...data, conformpassword: value });
+
     setIsPasswordValid(passwordRegex.test(value) && data.password === value);
+    // setData({...data ,  conformpassword: value});
+
   };
 
+  function submit() {
+    let signupData;
+    signup(data).then((res)=>{
+      signupData = res
+    }).catch((err)=>{
+      console.log(err);
+    })
+  }
   
-  console.log(data)
   return (
     <div className="register-form">
       <div className="register-container">
@@ -59,10 +69,10 @@ const username = (e) => {
               <TextField
                 className="text-field"
                 id="outlined-basic"
-                label="First Name*"
+                label="First Name"
                 variant="outlined"
                 size="small"
-                value={data.firstname}
+                required
                 onChange={firstname}
               />
               <TextField
@@ -81,7 +91,7 @@ const username = (e) => {
                 variant="outlined"
                 size="small"
                 onChange={username}
-                error={!isUsernameValid}
+                // error={!isUsernameValid}
               />
               <span>You can use letters, numbers & periods</span>
             </div>
@@ -113,8 +123,10 @@ const username = (e) => {
               </span>
             </div>
             <div className="register-button-container">
-              <NavLink to="/login" className="login-link">Sign in insted</NavLink>
-              <Button variant="contained">Register</Button>
+              <NavLink to="/" className="login-link">Sign in insted</NavLink>
+              <NavLink to="/">
+              <Button variant="contained" onClick={submit}>Register</Button>
+              </NavLink>
             </div>
           </div>
           <div className="form-content-two">

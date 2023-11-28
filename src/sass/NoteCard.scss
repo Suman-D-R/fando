@@ -1,0 +1,50 @@
+.card-component {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  width: 180px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card-component-two {
+  visibility: hidden;
+}
+
+.card-component:hover .card-component-two {
+  visibility: visible;
+}
+.card-title {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  flex-wrap: wrap;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: start;
+}
+.card-note {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  align-items: start;
+  text-align: start;
+  font-weight: 400;
+  color: rgb(106, 106, 106);
+}
+@media only screen and (max-width: 800px) {
+  .card-component {
+    width: 44%;
+    margin: 5px;
+    padding: 5px;
+  }
+  .card-title {
+    font-size: 14px;
+  }
+  .card-note {
+    font-size: 12px;
+    color: rgb(27, 27, 27);
+  }
+}

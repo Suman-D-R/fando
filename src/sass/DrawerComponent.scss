@@ -1,0 +1,38 @@
+.drower-list{
+    width: 300px;
+}
+.drawer-list-content{
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    font-size: 20px;
+    padding: 10px 0;
+}
+
+.drawer-list-content:hover{
+    background-color: rgb(242, 211, 172);
+    border-radius: 0 50px 50px 0;
+}
+.drawer-list-content div{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.drawer-list-content p{
+    width: 70%;
+    color: #1a1919;
+    font-family: sans-serif;
+}
+@media only screen and (max-width:800px) {
+    .drower-list{
+        width: 150px;
+    }
+    .drawer-list-content{
+        height: 15px;
+        font-size: 14px;
+    }
+    
+}
