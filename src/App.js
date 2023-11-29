@@ -1,5 +1,4 @@
 import {
-  useRouteError,
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
@@ -10,6 +9,7 @@ import Dashboard from "./components/Dashboard.jsx";
 import NotesContainer from "./components/NotesContainer.jsx";
 import ArchiveContainer from "./components/ArchiveContainer.jsx";
 import BinConatiner from "./components/BinConatiner.jsx";
+import ErrorBoundry from "./components/ErrorBoundry.jsx";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
   );
 }
 const router = createBrowserRouter([
-  { path: "/", element: <Login /> },
+  { path: "/", element: <Login />,errorElement: <ErrorBoundry /> },
   { path: "/signup", element: <RegisterForm /> },
   {
     path: "/",

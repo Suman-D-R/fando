@@ -24,6 +24,9 @@
     flex-wrap: wrap;
     justify-content: start;
 }
+.modal-box{
+    border: none !important;
+}
 @media only screen and (max-width: 800px) {
     .note-container-one{
         width: 80%;
