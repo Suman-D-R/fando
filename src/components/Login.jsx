@@ -5,37 +5,39 @@ import Button from "@mui/material/Button";
 
 import TextField from "@mui/material/TextField";
 import Footer from "./Footer";
-import {login} from "../utils/userService";
+import { getDetails, login } from "../utils/userService";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-
-  const [data,setData] = useState();
+  const [data, setData] = useState();
   const navigate = useNavigate();
 
-  const email = (e)=>{
-    setData({...data,email:e.target.value})
-  }
+  const email = (e) => {
+    setData({ ...data, email: e.target.value });
+  };
 
-  const passowrd =(e)=>{
-    setData({...data,password:e.target.value})
-  }
+  const passowrd = (e) => {
+    setData({ ...data, password: e.target.value });
+  };
 
-  
- const  submit = async ()=>{
-    await login(data).then((response)=>{
+  const submit = async () => {
+    await login(data)
+      .then((response) => {
+        const data = response.data.data;
 
-      const { id ,firstName,lastName,email } = response.data;
-      localStorage.setItem("accessToken",id)
-      localStorage.setItem("userName",firstName+" "+lastName)
-      localStorage.setItem("email",email)
-      navigate('/notes')
+        localStorage.setItem("accessToken", data);
 
-    }).catch((err)=>console.log(err))
+        getDetails(data).then((response) => {
+          const { firstName, lastName, email } = response.data;
 
-  }
+          localStorage.setItem("userName", firstName + " " + lastName);
+          localStorage.setItem("email", email);
+        });
 
-
+        navigate("/notes");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="login-container">
@@ -63,8 +65,12 @@ function Login() {
               <span>Forget password</span>
             </div>
             <div className="login-button-container">
-              <NavLink to="/signup" className="login-link">Create account</NavLink>
-              <Button variant="contained" onClick={submit}>Login</Button>
+              <NavLink to="/signup" className="login-link">
+                Create account
+              </NavLink>
+              <Button variant="contained" onClick={submit}>
+                Login
+              </Button>
             </div>
           </div>
         </div>

@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const token = localStorage.getItem("accessToken")
-const BASE_URL = "https://fundoonotes.incubation.bridgelabz.com/api/notes/"
-const access_token ="?access_token=" + token;
+const token = localStorage.getItem("accessToken");
+const BASE_URL = "http://localhost:3080/api/v1/notes/";
 
 // export const getAllNotes = async ()=>{
 //     const notesData = await axios.get(BASE_URL+"getNotesList?access_token=" + token)
@@ -19,25 +18,48 @@ const access_token ="?access_token=" + token;
 //     return notesData;
 // }
 
+// Replace with your actual access token
 
-export const getNotesMethods = async (method)=>{
-    const notesData = await axios.get(BASE_URL+ method + access_token)
-    console.log(notesData)
-    return notesData;
-}
+export const getNotesMethods = async (method) => {
+  try {
+    const notesData = await axios.get(BASE_URL + method, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-
+    return notesData.data;
+  } catch (error) {
+    console.error("Error fetching notes data:", error);
+    throw new Error("Failed to get notes data");
+  }
+};
 
 // export const addNoteList = async (data)=>{
 //     const noteData = await axios.post(BASE_URL+"addNotes?access_token="+token,
 //     data)
 // }
 
+export const notePutOperations = async (data, endpoint) => {
+  console.log(endpoint)
+  const noteData = await axios.put(BASE_URL + endpoint, data, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  console.log(noteData);
+};
 
 
-export const noteOperations = async (data,endpoint)=>{
-    const noteData = await axios.post(BASE_URL+endpoint+access_token,
-    data)
-    console.log(noteData)
-}
-
+export const noteOperations = async (data, endpoint) => {
+  console.log(endpoint)
+  const noteData = await axios.delete(BASE_URL + endpoint, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  console.log(noteData);
+};

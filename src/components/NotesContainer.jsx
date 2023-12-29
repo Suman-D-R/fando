@@ -4,7 +4,7 @@ import TakeNote from "./TakeNote";
 import NoteCard from "./NoteCard";
 import { getNotesMethods } from "../utils/noteService";
 import { useLocation, useParams } from "react-router-dom";
-import { addNoteList, noteOperations } from "../utils/noteService";
+import { addNoteList, noteOperations, notePutOperations } from "../utils/noteService";
 import ShimmerUI from "./ShimmerUI";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -22,21 +22,22 @@ function NotesContainer() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getNotesMethods("getNotesList")
+    getNotesMethods("")
       .then((response) => {
-        let notesData = response.data.data.data;
+        let notesData = response?.data;
+
         notesData = notesData.filter((notesData) => {
-          return notesData.isArchived == false && notesData.isDeleted == false;
+          return notesData.isAchive == false && notesData.isDeleted == false;
         });
         setNotesList(notesData);
-        console.log(notesData)
+        console.log(notesData);
         if (noteId) {
           const data = notesData.filter((noteObj) => {
             return noteObj.id == noteId;
           });
-          if(data[0]){
-          console.log(data[0]);
-          setModalData(data[0]);
+          if (data[0]) {
+            console.log(data[0]);
+            setModalData(data[0]);
           }
         }
       })
@@ -46,7 +47,6 @@ function NotesContainer() {
   }, []);
 
   useEffect(() => {
-    console.log(modalData);
   }, [modalData]);
 
   const handleClose = () => {
@@ -54,9 +54,10 @@ function NotesContainer() {
     navigate("/notes");
   };
 
+
   const getNoteData = (noteObj) => {
     setNotesList([...notesList, noteObj]);
-    noteOperations(noteObj, "addNotes")
+    noteOperations(noteObj, "")
       .then((res) => {
         console.log(res);
       })
@@ -65,26 +66,33 @@ function NotesContainer() {
       });
   };
 
+
   const updateData = (noteObj, endpoint) => {
     const updatedList = copyNoteList.map((note) => {
-      if (note.id == noteObj.noteIdList[0]) {
-        if (endpoint == "/archiveNotes") {
-          note.isArchived = true;
-        } else if (endpoint == "/trashNotes") {
+      if (note._id == noteObj.noteIdList[0]) {
+        const a = `${note._id}/achiveNote`
+        if (endpoint == `${note._id}/achiveNote`) {
+          note.isAchive = true;
+          return note;
+        } else if (endpoint == `${note._id}/deleteNote`) {
           note.isDeleted = true;
+          return note;
         } else {
           note.color = noteObj.color;
+          return note;
         }
       }
 
       return note;
     });
     const filterUpdatedList = updatedList.filter((noteObj) => {
-      return noteObj.isArchived == false && noteObj.isDeleted == false;
+      return noteObj.isAchive == false && noteObj.isDeleted == false;
     });
+
+    console.log("hello",filterUpdatedList)
     setNotesList(filterUpdatedList);
 
-    noteOperations(noteObj, endpoint)
+    notePutOperations(noteObj, endpoint)
       .then((res) => {})
       .catch((err) => {
         console.log(err);
@@ -93,7 +101,7 @@ function NotesContainer() {
 
   const collectData = (data) => {
     const updated = notesList.map((noteObj) => {
-      if (noteObj.id == data.noteId) {
+      if (noteObj._id == data.noteId) {
         noteObj = data;
       }
       return noteObj;

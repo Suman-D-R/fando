@@ -13,7 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import BrushIcon from "@mui/icons-material/Brush";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import {noteOperations} from "../utils/noteService";
+import {notePutOperations} from "../utils/noteService";
 import { useNavigate } from "react-router-dom";
 import IconOperation from "./IconOperation";
 
@@ -38,9 +38,7 @@ function TakeNote({setNoteData,state=false,noteData,handleClose,collectData}) {
     const handleAddNote = ()=>{
         setSearchBarState(!searchBarState);
         const defaultValue = {
-          "noteId":null,
-          "isPined": false,
-              "isArchived": false,
+              "isAchive": false,
               "isDeleted": false,
               "color": "",
         }
@@ -49,9 +47,9 @@ function TakeNote({setNoteData,state=false,noteData,handleClose,collectData}) {
     }
 
     const handleUpdateNote = ()=>{
-      data.noteId = noteData.id;
+      data.noteId = noteData._id;
       console.log(data)
-      noteOperations(data,"updateNotes").then((res=>{
+      notePutOperations(data,noteData._id).then((res=>{
         console.log(res)
       })).catch((err)=>{
         console.log(err)

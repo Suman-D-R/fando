@@ -29,25 +29,21 @@ function NoteCard({ noteData, updateData, path, collectData, modalData }) {
 
   const handleNoteOperations = (operations) => {
     let noteObj = {
-      noteIdList: [noteData.id],
+      noteIdList: [noteData._id],
     };
     let endPoint;
 
     if (operations == "archive" || operations == "unarchive") {
-      noteObj.isArchived = operations == "archive" ? true : false;
-      endPoint = "/archiveNotes";
-    } else if (operations == "deleteForeverNotes") {
-      noteObj.isDeleted = true;
-      endPoint = "/deleteForeverNotes";
+      noteObj.isAchive = operations == "archive" ? true : false;
+      endPoint = `${noteData._id}/achiveNote`;
     } else if (operations == "removetrash" || operations == "movetrash") {
       noteObj.isDeleted = operations == "removetrash" ? false : true;
-      endPoint = "/trashNotes";
+      endPoint = `${noteData._id}/deleteNote`;
     } else if (operations == "deleteForeverNotes") {
-      noteObj.isDeleteForeverNotes = true;
-      endPoint = "/deleteForeverNotes";
+      endPoint = `${noteData._id}`;
     } else {
       noteObj.color = operations;
-      endPoint = "/changesColorNotes";
+      endPoint = `${noteData._id}/color`;
     }
 
     updateData(noteObj, endPoint);
